@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "smol-bar": {
+      "hosting": {
+        "smol.bar": [
+          "smol-bar"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "smol-bar"
+  }
+}

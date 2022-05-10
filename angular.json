@@ -98,6 +98,16 @@
             ],
             "scripts": []
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {
+            "prerender": false,
+            "ssr": false,
+            "browserTarget": "smol.bar:build:production",
+            "firebaseProject": "smol-bar",
+            "firebaseHostingSite": "smol-bar"
+          }
         }
       }
     }

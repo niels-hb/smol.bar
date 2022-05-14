@@ -36,9 +36,11 @@ export class ForwarderComponent implements OnInit {
       )
     ).pipe(
       tap((snapshot) => {
-        this.startTimer(snapshot.data()!.delay, () =>
-          this.redirect(snapshot.data()!.target)
-        );
+        if (snapshot.exists()) {
+          this.startTimer(snapshot.data()!.delay, () =>
+            this.redirect(snapshot.data()!.target)
+          );
+        }
       })
     );
   }

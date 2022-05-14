@@ -14,6 +14,8 @@ import { ForwarderComponent } from './pages/forwarder/forwarder.component';
 import { ToolbarComponent } from './toolbar/toolbar.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -30,6 +32,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     provideFirestore(() => getFirestore()),
     BrowserAnimationsModule,
     FontAwesomeModule,
+    MatButtonModule,
+    MatIconModule,
     MatToolbarModule,
     MatProgressSpinnerModule,
   ],

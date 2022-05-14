@@ -1,0 +1,21 @@
+<div class="flex flex-col justify-center items-center w-full h-full">
+  <ng-container *ngIf="redirectData$ | async as snapshot; else loading">
+    <h1>smol.bar</h1>
+
+    <button
+      (click)="redirect(snapshot.data()!.target)"
+      mat-raised-button
+      color="primary"
+      class="uppercase"
+    >
+      Take me to {{ snapshot.data()!.target }}
+    </button>
+
+    <span class="mt-2">
+      Redirecting in {{ timeRemaining ?? snapshot.data()!.delay }} seconds...
+    </span>
+  </ng-container>
+  <ng-template #loading>
+    <mat-spinner></mat-spinner>
+  </ng-template>
+</div>

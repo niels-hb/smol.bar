@@ -51,4 +51,8 @@ export class AuthenticationService {
   logout() {
     return this.auth.signOut();
   }
+
+  getUid() {
+    return this.currentUser$.getValue()?.uid ?? 'anonymous';
+  }
 }

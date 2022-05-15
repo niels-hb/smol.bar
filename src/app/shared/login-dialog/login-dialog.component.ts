@@ -8,7 +8,7 @@ import { AuthenticationService } from 'src/app/services/authentication/authentic
   templateUrl: './login-dialog.component.html',
   styleUrls: ['./login-dialog.component.css'],
 })
-export class LoginDialogComponent implements OnInit {
+export class LoginDialogComponent {
   loading: boolean = false;
 
   constructor(

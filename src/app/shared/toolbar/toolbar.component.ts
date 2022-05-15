@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
 import { AuthenticationService } from '../../services/authentication/authentication.service';
-import { MatDialog } from '@angular/material/dialog';
+import { Component } from '@angular/core';
 import { LoginDialogComponent } from '../login-dialog/login-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-toolbar',

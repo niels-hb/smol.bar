@@ -1,5 +1,3 @@
-import { Injectable } from '@angular/core';
-import { User } from '@angular/fire/auth';
 import {
   ActivatedRouteSnapshot,
   CanActivate,
@@ -7,8 +5,10 @@ import {
   RouterStateSnapshot,
   UrlTree,
 } from '@angular/router';
-import { Observable } from 'rxjs';
 import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { User } from '@angular/fire/auth';
 
 @Injectable({
   providedIn: 'root',

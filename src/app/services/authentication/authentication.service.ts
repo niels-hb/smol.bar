@@ -1,17 +1,15 @@
-import { Injectable } from '@angular/core';
 import {
   Auth,
   AuthProvider,
-  User,
-  UserCredential,
-  signInWithPopup,
-} from '@angular/fire/auth';
-import {
   GithubAuthProvider,
   GoogleAuthProvider,
+  User,
+  UserCredential,
   signInAnonymously,
-} from '@firebase/auth';
+  signInWithPopup,
+} from '@angular/fire/auth';
 import { BehaviorSubject } from 'rxjs';
+import { Injectable } from '@angular/core';
 
 @Injectable({
   providedIn: 'root',
@@ -23,12 +21,6 @@ export class AuthenticationService {
 
   constructor(private auth: Auth) {
     this.listenToAuthStateChanges();
-  }
-
-  private listenToAuthStateChanges() {
-    this.auth.onAuthStateChanged((user) => {
-      this.currentUser$.next(user);
-    });
   }
 
   signInWithGoogle(): Promise<UserCredential> {
@@ -43,15 +35,21 @@ export class AuthenticationService {
     return signInAnonymously(this.auth);
   }
 
-  private openPopup(provider: AuthProvider): Promise<UserCredential> {
-    return signInWithPopup(this.auth, provider);
-  }
-
   logout() {
     return this.auth.signOut();
   }
 
   getUid() {
     return this.currentUser$.getValue()?.uid ?? 'anonymous';
+  }
+
+  private listenToAuthStateChanges() {
+    this.auth.onAuthStateChanged((user) => {
+      this.currentUser$.next(user);
+    });
+  }
+
+  private openPopup(provider: AuthProvider): Promise<UserCredential> {
+    return signInWithPopup(this.auth, provider);
   }
 }

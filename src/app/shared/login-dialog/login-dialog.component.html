@@ -1,6 +1,8 @@
 <h2 mat-dialog-title class="uppercase text-center">Login</h2>
 <mat-dialog-content>
   <div class="flex flex-col gap-4 w-52 py-2">
+    <mat-error *ngIf="error">{{ error.message }}</mat-error>
+
     <button mat-raised-button [disabled]="loading" (click)="signInWithGoogle()">
       Sign in with Google
     </button>

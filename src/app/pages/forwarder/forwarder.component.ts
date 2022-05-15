@@ -5,9 +5,9 @@ import {
   doc,
   getDoc,
 } from '@angular/fire/firestore';
-import { ActivatedRoute } from '@angular/router';
 import { Observable, finalize, from, interval, map, take, tap } from 'rxjs';
 import { Redirect, redirectConverter } from 'src/models/redirect';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-forwarder',
@@ -24,6 +24,10 @@ export class ForwarderComponent implements OnInit {
   ngOnInit(): void {
     const redirectId = this.route.snapshot.params['id'];
     this.redirectData$ = this.loadRedirectData(redirectId);
+  }
+
+  redirect(url: string) {
+    window.location.href = url;
   }
 
   private loadRedirectData(
@@ -46,7 +50,7 @@ export class ForwarderComponent implements OnInit {
     );
   }
 
-  startTimer(duration: number, callback: Function) {
+  private startTimer(duration: number, callback: () => void) {
     const time = duration;
     interval(1000)
       .pipe(
@@ -56,9 +60,5 @@ export class ForwarderComponent implements OnInit {
         finalize(() => callback())
       )
       .subscribe();
-  }
-
-  redirect(url: string) {
-    window.location.href = url;
   }
 }

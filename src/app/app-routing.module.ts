@@ -1,8 +1,8 @@
-import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LoggedInGuard } from './guards/logged-in/logged-in.guard';
 import { ForwarderComponent } from './pages/forwarder/forwarder.component';
 import { HomeComponent } from './pages/home/home.component';
+import { LoggedInGuard } from './guards/logged-in/logged-in.guard';
+import { NgModule } from '@angular/core';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { StatsComponent } from './pages/stats/stats.component';
 

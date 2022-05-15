@@ -11,17 +11,20 @@ export class Redirect {
   readonly target: string;
   readonly delay: number;
   readonly expiresAt: Timestamp;
+  readonly message: string | null;
   readonly metadata: Metadata;
 
   constructor(
     target: string,
     delay: number,
     expiresAt: Timestamp,
+    message: string,
     metadata: Metadata
   ) {
     this.target = target;
     this.delay = delay;
     this.expiresAt = expiresAt;
+    this.message = message;
     this.metadata = metadata;
   }
 
@@ -34,6 +37,7 @@ export class Redirect {
       data['target'],
       data['delay'],
       data['expiresAt'],
+      data['message'],
       Metadata.fromJSON(data['metadata'])
     );
   }
@@ -43,6 +47,7 @@ export class Redirect {
       target: this.target,
       delay: this.delay,
       expiresAt: this.expiresAt,
+      message: this.message,
       metadata: this.metadata.toJSON(),
     };
   }

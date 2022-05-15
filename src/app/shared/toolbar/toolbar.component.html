@@ -1,0 +1,23 @@
+<mat-toolbar color="primary">
+  <div class="container flex justify-between">
+    <span class="flex items-center" (click)="home()">smol.bar</span>
+    <div>
+      <ng-container *ngIf="auth.loginState$ | async; else showLogin">
+        <button mat-icon-button (click)="stats()">
+          <mat-icon>bar_chart</mat-icon>
+        </button>
+        <button mat-icon-button (click)="profile()">
+          <mat-icon>account_circle</mat-icon>
+        </button>
+        <button mat-icon-button (click)="logout()">
+          <mat-icon>logout</mat-icon>
+        </button>
+      </ng-container>
+      <ng-template #showLogin>
+        <button mat-icon-button (click)="login()">
+          <mat-icon>login</mat-icon>
+        </button>
+      </ng-template>
+    </div>
+  </div>
+</mat-toolbar>

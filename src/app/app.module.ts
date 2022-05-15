@@ -11,11 +11,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { HomeComponent } from './pages/home/home.component';
 import { ForwarderComponent } from './pages/forwarder/forwarder.component';
-import { ToolbarComponent } from './toolbar/toolbar.component';
+import { ToolbarComponent } from './shared/toolbar/toolbar.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { ProfileComponent } from './pages/profile/profile.component';
+import { StatsComponent } from './pages/stats/stats.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { LoginDialogComponent } from './shared/login-dialog/login-dialog.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +27,9 @@ import { MatIconModule } from '@angular/material/icon';
     HomeComponent,
     ForwarderComponent,
     ToolbarComponent,
+    ProfileComponent,
+    StatsComponent,
+    LoginDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -36,6 +43,7 @@ import { MatIconModule } from '@angular/material/icon';
     MatIconModule,
     MatToolbarModule,
     MatProgressSpinnerModule,
+    MatDialogModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -2,8 +2,11 @@ import { DocumentData, Timestamp } from '@angular/fire/firestore';
 
 export class Metadata {
   readonly createdAt: Timestamp;
+
   readonly createdBy: string;
+
   readonly updatedAt: Timestamp;
+
   readonly updatedBy: string;
 
   constructor(

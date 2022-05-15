@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import {
-  doc,
-  Firestore,
-  getDoc,
   DocumentSnapshot,
+  Firestore,
+  doc,
+  getDoc,
 } from '@angular/fire/firestore';
 import { ActivatedRoute } from '@angular/router';
-import { finalize, from, interval, map, Observable, take, tap } from 'rxjs';
+import { Observable, finalize, from, interval, map, take, tap } from 'rxjs';
 import { Redirect, redirectConverter } from 'src/models/redirect';
 
 @Component({
@@ -16,6 +16,7 @@ import { Redirect, redirectConverter } from 'src/models/redirect';
 })
 export class ForwarderComponent implements OnInit {
   redirectData$: Observable<DocumentSnapshot<Redirect>> | undefined;
+
   timeRemaining: number | undefined;
 
   constructor(private route: ActivatedRoute, private firestore: Firestore) {}

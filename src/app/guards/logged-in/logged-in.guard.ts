@@ -24,12 +24,12 @@ export class LoggedInGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    let currentUser: User | null = this.auth.currentUser$.getValue();
+    const currentUser: User | null = this.auth.currentUser$.getValue();
 
-    let loggedIn = currentUser != null;
-    let anonymous = currentUser?.isAnonymous ?? false;
+    const loggedIn = currentUser != null;
+    const anonymous = currentUser?.isAnonymous ?? false;
 
-    let canActivate = loggedIn && !anonymous;
+    const canActivate = loggedIn && !anonymous;
 
     if (!canActivate) {
       this.router.navigateByUrl('/');

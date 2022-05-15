@@ -2,15 +2,14 @@ import { Injectable } from '@angular/core';
 import {
   Auth,
   AuthProvider,
-  signInWithPopup,
   User,
   UserCredential,
+  signInWithPopup,
 } from '@angular/fire/auth';
 import {
   GithubAuthProvider,
   GoogleAuthProvider,
   signInAnonymously,
-  signInWithRedirect,
 } from '@firebase/auth';
 import { BehaviorSubject } from 'rxjs';
 

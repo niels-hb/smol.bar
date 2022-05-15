@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
@@ -9,7 +9,7 @@ import { AuthenticationService } from 'src/app/services/authentication/authentic
   styleUrls: ['./login-dialog.component.css'],
 })
 export class LoginDialogComponent {
-  loading: boolean = false;
+  loading = false;
 
   constructor(
     private router: Router,

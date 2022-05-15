@@ -1,6 +1,5 @@
 import {
   DocumentData,
-  DocumentReference,
   QueryDocumentSnapshot,
   SnapshotOptions,
   Timestamp,
@@ -9,9 +8,13 @@ import { Metadata } from './metadata';
 
 export class Redirect {
   readonly target: string;
+
   readonly delay: number;
+
   readonly expiresAt: Timestamp;
+
   readonly message: string | null;
+
   readonly metadata: Metadata;
 
   constructor(

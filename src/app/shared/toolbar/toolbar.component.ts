@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../../services/authentication/authentication.service';
 import { MatDialog } from '@angular/material/dialog';
@@ -10,7 +10,7 @@ import { LoginDialogComponent } from '../login-dialog/login-dialog.component';
   styleUrls: ['./toolbar.component.css'],
 })
 export class ToolbarComponent {
-  loggedIn: boolean = false;
+  loggedIn = false;
 
   constructor(
     private router: Router,

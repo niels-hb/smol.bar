@@ -18,7 +18,6 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root',
 })
 export class AuthenticationService {
-  loginState$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   currentUser$: BehaviorSubject<User | null> = new BehaviorSubject<User | null>(
     null
   );
@@ -29,7 +28,6 @@ export class AuthenticationService {
 
   private listenToAuthStateChanges() {
     this.auth.onAuthStateChanged((user) => {
-      this.loginState$.next(user ? true : false);
       this.currentUser$.next(user);
     });
   }

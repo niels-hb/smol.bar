@@ -23,39 +23,36 @@ export class LoginDialogComponent implements OnInit {
     try {
       this.loading = true;
       await this.auth.signInWithGoogle();
+      this.closeDialog();
     } catch (e) {
       console.error(e);
     } finally {
       this.loading = false;
     }
-
-    this.closeDialog();
   }
 
   async signInWithGitHub() {
     try {
       this.loading = true;
       await this.auth.signInWithGitHub();
+      this.closeDialog();
     } catch (e) {
       console.error(e);
     } finally {
       this.loading = false;
     }
-
-    this.closeDialog();
   }
 
   async signInAnonymously() {
     try {
       this.loading = true;
       await this.auth.signInAnonymously();
+      this.closeDialog();
     } catch (e) {
       console.error(e);
     } finally {
       this.loading = false;
     }
-
-    this.closeDialog();
   }
 
   private closeDialog() {

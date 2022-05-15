@@ -18,8 +18,6 @@ export class ToolbarComponent implements OnInit {
     public dialog: MatDialog
   ) {}
 
-  ngOnInit(): void {}
-
   home() {
     this.router.navigateByUrl('/');
   }

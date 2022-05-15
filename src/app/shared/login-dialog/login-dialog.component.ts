@@ -17,8 +17,6 @@ export class LoginDialogComponent implements OnInit {
     public dialogRef: MatDialogRef<LoginDialogComponent>
   ) {}
 
-  ngOnInit(): void {}
-
   async signInWithGoogle() {
     try {
       this.loading = true;

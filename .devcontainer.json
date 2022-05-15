@@ -4,7 +4,8 @@
 		"Angular.ng-template",
 		"streetsidesoftware.code-spell-checker",
 		"esbenp.prettier-vscode",
-		"bradlc.vscode-tailwindcss"
+		"bradlc.vscode-tailwindcss",
+		"dbaeumer.vscode-eslint"
 	],
 	"postCreateCommand": "npm i -g @angular/cli firebase-tools"
 }

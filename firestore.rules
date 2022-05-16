@@ -1,9 +1,37 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
+    function authenticatedUidMatchesProvidedUid(auth, uid, allowAnonymous) {
+    	return (allowAnonymous && uid == "anonymous") ||
+      			 (auth != null && auth.uid == uid);
+    }
+
+    function userExists(uid, allowAnonymous) {
+      return (allowAnonymous && uid == "anonymous") ||
+       			 exists(/databases/$(database)/documents/users/$(uid));
+    }
+
+    function validateMetadata(metadata, allowAnonymous) {
+      return metadata != null &&
+             metadata.createdAt != null &&
+             authenticatedUidMatchesProvidedUid(request.auth, metadata.createdBy, allowAnonymous) &&
+             userExists(metadata.createdBy, allowAnonymous) &&
+             metadata.updatedAt != null &&
+             authenticatedUidMatchesProvidedUid(request.auth, metadata.updatedBy, allowAnonymous) &&
+             userExists(metadata.updatedBy, allowAnonymous);
+    }
+
     match /redirects/{document=**} {
+      function validateRedirect(data) {
+        return data != null &&
+               data.target != "" &&
+               data.delay >= 0 && data.delay <= 60 &&
+               data.expiresAt != null &&
+               validateMetadata(data.metadata, true);
+      }
+
       allow read: if true;
-      allow write: if false;
+      allow create: if validateRedirect(request.resource.data);
     }
   }
 }

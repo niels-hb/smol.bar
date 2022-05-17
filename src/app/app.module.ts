@@ -5,7 +5,6 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ForwarderComponent } from './pages/forwarder/forwarder.component';
 import { HomeComponent } from './pages/home/home.component';
 import { LoginDialogComponent } from './shared/login-dialog/login-dialog.component';
@@ -43,7 +42,6 @@ import { environment } from '../environments/environment';
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
     BrowserAnimationsModule,
-    FontAwesomeModule,
     MatButtonModule,
     MatIconModule,
     MatToolbarModule,

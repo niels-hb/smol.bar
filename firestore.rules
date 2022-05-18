@@ -30,8 +30,11 @@ service cloud.firestore {
                validateMetadata(data.metadata, true);
       }
 
-      allow read: if true;
+      allow get: if true;
+      allow list: if false;
       allow create: if validateRedirect(request.resource.data);
+      allow update: if false;
+      allow delete: if false;
     }
   }
 }

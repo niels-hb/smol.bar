@@ -62,7 +62,7 @@ export const redirectConverter = {
   },
   fromFirestore: (
     snapshot: QueryDocumentSnapshot<DocumentData>,
-    options: SnapshotOptions | undefined
+    _options: SnapshotOptions | undefined
   ): Redirect => {
     return Redirect.fromJSON(snapshot.data());
   },

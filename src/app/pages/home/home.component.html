@@ -1,5 +1,125 @@
 <app-toolbar></app-toolbar>
 
-<div class="container">
-  <p>Home works!</p>
+<div class="container py-4">
+  <mat-card>
+    <form [formGroup]="createRedirectForm">
+      <mat-card-title>
+        Your smol.bar will be:
+        <a [href]="url">{{ url }} </a>
+      </mat-card-title>
+      <mat-card-subtitle>
+        Fill out the form to generate a smol URL to share with your friends. :)
+
+        <mat-error *ngIf="error">{{ error.message }}</mat-error>
+      </mat-card-subtitle>
+      <mat-card-content>
+        <div class="flex flex-col sm:flex-row gap-4 py-2">
+          <mat-form-field appearance="outline">
+            <mat-label>ID</mat-label>
+            <input matInput placeholder="C2qlgr7X" formControlName="id" />
+            <mat-hint> Give your smol.bar a custom id.</mat-hint>
+            <mat-error
+              *ngIf="createRedirectForm.get('id')!.hasError('required')"
+            >
+              This field is required!
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field class="flex-grow" appearance="outline">
+            <mat-label>Target URL</mat-label>
+            <input
+              matInput
+              placeholder="https://http.cat/418"
+              formControlName="target"
+            />
+            <mat-icon matSuffix>link</mat-icon>
+            <mat-hint>
+              This is the URL the user will be redirected to, after clicking on
+              your smol URL.
+            </mat-hint>
+            <mat-error
+              *ngIf="createRedirectForm.get('target')!.hasError('required')"
+            >
+              This field is required!
+            </mat-error>
+            <mat-error
+              *ngIf="createRedirectForm.get('target')!.hasError('pattern')"
+            >
+              This field has to contain a valid URL (ex.: https://foo.bar)!
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Delay</mat-label>
+            <input matInput placeholder="3" formControlName="delay" />
+            <mat-icon matSuffix>hourglass_bottom</mat-icon>
+            <mat-hint>
+              How long the redirect page should be shown to the user.
+            </mat-hint>
+            <mat-error
+              *ngIf="createRedirectForm.get('delay')!.hasError('required')"
+            >
+              This field is required!
+            </mat-error>
+            <mat-error
+              *ngIf="createRedirectForm.get('delay')!.hasError('pattern')"
+            >
+              The input has to be a valid number!
+            </mat-error>
+            <mat-error *ngIf="createRedirectForm.get('delay')!.hasError('min')">
+              The delay has to be greater than or equal to 0!
+            </mat-error>
+            <mat-error *ngIf="createRedirectForm.get('delay')!.hasError('max')">
+              The delay has to be less than or equal to 60!
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Expires on</mat-label>
+            <input
+              matInput
+              [min]="today"
+              [matDatepicker]="datepicker"
+              formControlName="expiresAt"
+            />
+            <mat-hint>
+              The smol URL you create will be usable until the date you specify
+              here.
+            </mat-hint>
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="datepicker"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #datepicker></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div class="flex py-2">
+          <mat-form-field appearance="outline" class="flex-grow">
+            <mat-label>Custom message</mat-label>
+            <textarea matInput formControlName="message"></textarea>
+            <mat-hint>
+              A message shown to the user on the redirecting page.
+            </mat-hint>
+          </mat-form-field>
+        </div>
+      </mat-card-content>
+      <mat-card-actions align="end">
+        <button
+          mat-button
+          class="uppercase"
+          type="reset"
+          [disabled]="loading"
+          (click)="resetForm()"
+        >
+          Reset
+        </button>
+        <button
+          mat-button
+          class="uppercase"
+          type="submit"
+          [disabled]="loading"
+          (click)="createRedirect()"
+        >
+          Create
+        </button>
+      </mat-card-actions>
+    </form>
+  </mat-card>
 </div>

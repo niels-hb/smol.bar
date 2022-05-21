@@ -12,6 +12,11 @@
         Take me to {{ snapshot.data()!.target }}
       </button>
 
+      <span class="py-4 text-center" *ngIf="snapshot.data()!.message">
+        A message from your creator: <br />
+        <b>{{ snapshot.data()!.message }}</b>
+      </span>
+
       <span class="mt-2">
         Redirecting in {{ timeRemaining ?? snapshot.data()!.delay }} seconds...
       </span>

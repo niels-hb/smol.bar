@@ -13,10 +13,10 @@ service cloud.firestore {
 
     function validateMetadata(metadata, allowAnonymous) {
       return metadata != null &&
-             metadata.createdAt != null &&
+             metadata.createdAt != null && metadata.createdAt is timestamp &&
              authenticatedUidMatchesProvidedUid(request.auth, metadata.createdBy, allowAnonymous) &&
              userExists(metadata.createdBy, allowAnonymous) &&
-             metadata.updatedAt != null &&
+             metadata.updatedAt != null && metadata.updatedAt is timestamp &&
              authenticatedUidMatchesProvidedUid(request.auth, metadata.updatedBy, allowAnonymous) &&
              userExists(metadata.updatedBy, allowAnonymous);
     }
@@ -24,9 +24,10 @@ service cloud.firestore {
     match /redirects/{document=**} {
       function validateRedirect(data) {
         return data != null &&
-               data.target != "" &&
-               data.delay >= 0 && data.delay <= 60 &&
-               data.expiresAt != null &&
+               data.target is string && data.target != "" &&
+               data.delay is int && data.delay >= 0 && data.delay <= 60 &&
+               data.expiresAt is timestamp && data.expiresAt != null &&
+               (data.message is string || data.message == null) &&
                validateMetadata(data.metadata, true);
       }
 

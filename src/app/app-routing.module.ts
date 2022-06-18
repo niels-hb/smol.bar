@@ -1,10 +1,7 @@
 import { RouterModule, Routes } from '@angular/router';
 import { ForwarderComponent } from './pages/forwarder/forwarder.component';
 import { HomeComponent } from './pages/home/home.component';
-import { LoggedInGuard } from './guards/logged-in/logged-in.guard';
 import { NgModule } from '@angular/core';
-import { ProfileComponent } from './pages/profile/profile.component';
-import { StatsComponent } from './pages/stats/stats.component';
 
 const routes: Routes = [
   {
@@ -14,16 +11,6 @@ const routes: Routes = [
   {
     path: 'r/:id',
     component: ForwarderComponent,
-  },
-  {
-    path: 'profile',
-    component: ProfileComponent,
-    canActivate: [LoggedInGuard],
-  },
-  {
-    path: 'stats',
-    component: StatsComponent,
-    canActivate: [LoggedInGuard],
   },
 ];
 

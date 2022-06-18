@@ -7,7 +7,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import { ForwarderComponent } from './pages/forwarder/forwarder.component';
 import { HomeComponent } from './pages/home/home.component';
-import { LoginDialogComponent } from './shared/login-dialog/login-dialog.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -19,22 +18,11 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { NgModule } from '@angular/core';
-import { ProfileComponent } from './pages/profile/profile.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { StatsComponent } from './pages/stats/stats.component';
-import { ToolbarComponent } from './shared/toolbar/toolbar.component';
 import { environment } from '../environments/environment';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    HomeComponent,
-    ForwarderComponent,
-    ToolbarComponent,
-    ProfileComponent,
-    StatsComponent,
-    LoginDialogComponent,
-  ],
+  declarations: [AppComponent, HomeComponent, ForwarderComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

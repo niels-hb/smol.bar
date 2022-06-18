@@ -3,22 +3,8 @@ import { DocumentData, Timestamp } from '@angular/fire/firestore';
 export class Metadata {
   readonly createdAt: Timestamp;
 
-  readonly createdBy: string;
-
-  readonly updatedAt: Timestamp;
-
-  readonly updatedBy: string;
-
-  constructor(
-    createdAt: Timestamp,
-    createdBy: string,
-    updatedAt: Timestamp,
-    updatedBy: string
-  ) {
+  constructor(createdAt: Timestamp) {
     this.createdAt = createdAt;
-    this.createdBy = createdBy;
-    this.updatedAt = updatedAt;
-    this.updatedBy = updatedBy;
   }
 
   static fromJSON(data: DocumentData): Metadata {
@@ -26,20 +12,12 @@ export class Metadata {
       throw new Error('Metadata.fromJSON() failed because of missing data!');
     }
 
-    return new Metadata(
-      data['createdAt'],
-      data['createdBy'],
-      data['updatedAt'],
-      data['updatedBy']
-    );
+    return new Metadata(data['createdAt']);
   }
 
   toJSON() {
     return {
       createdAt: this.createdAt,
-      createdBy: this.createdBy,
-      updatedAt: this.updatedAt,
-      updatedBy: this.updatedBy,
     };
   }
 }

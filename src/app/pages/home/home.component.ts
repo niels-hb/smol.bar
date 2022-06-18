@@ -1,7 +1,6 @@
 import { Firestore, Timestamp, doc, setDoc } from '@angular/fire/firestore';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Redirect, redirectConverter } from 'src/models/redirect';
-import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
 import { Component } from '@angular/core';
 import { FirebaseError } from '@angular/fire/app';
 import { Metadata } from 'src/models/metadata';
@@ -20,10 +19,7 @@ export class HomeComponent {
 
   createRedirectForm: FormGroup;
 
-  constructor(
-    private firestore: Firestore,
-    private auth: AuthenticationService
-  ) {
+  constructor(private firestore: Firestore) {
     this.createRedirectForm = this.createFormGroup();
   }
 
@@ -41,12 +37,7 @@ export class HomeComponent {
         Number.parseInt(this.createRedirectForm.get('delay')?.value) ?? -1,
         this.createRedirectForm.get('expiresAt')?.value ?? Timestamp.now(),
         this.createRedirectForm.get('message')?.value ?? null,
-        new Metadata(
-          Timestamp.now(),
-          this.auth.getUid(),
-          Timestamp.now(),
-          this.auth.getUid()
-        )
+        new Metadata(Timestamp.now())
       );
 
       const id = this.createRedirectForm.get('id')?.value ?? this.generateId();

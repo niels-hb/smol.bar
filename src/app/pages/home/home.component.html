@@ -1,123 +1,116 @@
-<div class="container py-4">
-  <mat-card>
-    <form [formGroup]="createRedirectForm">
-      <mat-card-title>
-        Your smol.bar will be:
-        <a [href]="url">{{ url }} </a>
-      </mat-card-title>
-      <mat-card-subtitle>
-        Fill out the form to generate a smol URL to share with your friends. :)
+<form
+  [formGroup]="createRedirectForm"
+  class="flex flex-col justify-center items-start h-full sm:px-32 px-0"
+>
+  <div class="flex flex-col gap-2 bg-slate-700 p-4 rounded-lg sm:mx-0 mx-auto">
+    <div class="text-2xl">smol.bar</div>
 
-        <mat-error *ngIf="error">{{ error.message }}</mat-error>
-      </mat-card-subtitle>
-      <mat-card-content>
-        <div class="flex flex-col sm:flex-row gap-4 py-2">
-          <mat-form-field appearance="outline">
-            <mat-label>ID</mat-label>
-            <input matInput placeholder="C2qlgr7X" formControlName="id" />
-            <mat-hint> Give your smol.bar a custom id.</mat-hint>
-            <mat-error
-              *ngIf="createRedirectForm.get('id')!.hasError('required')"
-            >
-              This field is required!
-            </mat-error>
-          </mat-form-field>
-          <mat-form-field class="flex-grow" appearance="outline">
-            <mat-label>Target URL</mat-label>
-            <input
-              matInput
-              placeholder="https://http.cat/418"
-              formControlName="target"
-            />
-            <mat-icon matSuffix>link</mat-icon>
-            <mat-hint>
-              This is the URL the user will be redirected to, after clicking on
-              your smol URL.
-            </mat-hint>
-            <mat-error
-              *ngIf="createRedirectForm.get('target')!.hasError('required')"
-            >
-              This field is required!
-            </mat-error>
-            <mat-error
-              *ngIf="createRedirectForm.get('target')!.hasError('pattern')"
-            >
-              This field has to contain a valid URL (ex.: https://foo.bar)!
-            </mat-error>
-          </mat-form-field>
-          <mat-form-field appearance="outline">
-            <mat-label>Delay</mat-label>
-            <input matInput placeholder="3" formControlName="delay" />
-            <mat-icon matSuffix>hourglass_bottom</mat-icon>
-            <mat-hint>
-              How long the redirect page should be shown to the user.
-            </mat-hint>
-            <mat-error
-              *ngIf="createRedirectForm.get('delay')!.hasError('required')"
-            >
-              This field is required!
-            </mat-error>
-            <mat-error
-              *ngIf="createRedirectForm.get('delay')!.hasError('pattern')"
-            >
-              The input has to be a valid number!
-            </mat-error>
-            <mat-error *ngIf="createRedirectForm.get('delay')!.hasError('min')">
-              The delay has to be greater than or equal to 0!
-            </mat-error>
-            <mat-error *ngIf="createRedirectForm.get('delay')!.hasError('max')">
-              The delay has to be less than or equal to 60!
-            </mat-error>
-          </mat-form-field>
-          <mat-form-field appearance="outline">
-            <mat-label>Expires on</mat-label>
-            <input
-              matInput
-              [min]="today"
-              [matDatepicker]="datepicker"
-              formControlName="expiresAt"
-            />
-            <mat-hint>
-              The smol URL you create will be usable until the date you specify
-              here.
-            </mat-hint>
-            <mat-datepicker-toggle
-              matSuffix
-              [for]="datepicker"
-            ></mat-datepicker-toggle>
-            <mat-datepicker #datepicker></mat-datepicker>
-          </mat-form-field>
-        </div>
-        <div class="flex py-2">
-          <mat-form-field appearance="outline" class="flex-grow">
-            <mat-label>Custom message</mat-label>
-            <textarea matInput formControlName="message"></textarea>
-            <mat-hint>
-              A message shown to the user on the redirecting page.
-            </mat-hint>
-          </mat-form-field>
-        </div>
-      </mat-card-content>
-      <mat-card-actions align="end">
-        <button
-          mat-button
-          class="uppercase"
-          type="reset"
-          [disabled]="loading"
-          (click)="resetForm()"
-        >
-          Reset
-        </button>
-        <button
-          mat-button
-          class="uppercase"
-          type="submit"
-          [disabled]="loading"
-          (click)="createRedirect()"
-        >
-          Create
-        </button>
-      </mat-card-actions>
-    </form>
-  </mat-card>
-</div>
+    <div class="flex items-center">
+      <span>https://smol.bar/r/</span>
+      <input
+        formControlName="id"
+        class="bg-transparent border-2 border-gray-500 p-2"
+        type="text"
+        placeholder="ID"
+      />
+    </div>
+
+    <div class="flex flex-col">
+      <span>Target</span>
+      <input
+        formControlName="target"
+        class="bg-transparent border-2 border-gray-500 p-2"
+        type="text"
+        placeholder="https://http.cat/418"
+      />
+    </div>
+
+    <div class="flex flex-col">
+      <span>Delay</span>
+      <input
+        formControlName="delay"
+        class="bg-transparent border-2 border-gray-500 p-2"
+        type="number"
+        placeholder="3"
+        min="0"
+        max="60"
+      />
+    </div>
+
+    <div class="flex flex-col">
+      <span>Expires at</span>
+      <input
+        formControlName="expiresAt"
+        class="bg-transparent border-2 border-gray-500 p-2"
+        type="date"
+      />
+    </div>
+
+    <div class="flex flex-col">
+      <span>Custom message</span>
+      <input
+        formControlName="message"
+        class="bg-transparent border-2 border-gray-500 p-2"
+        type="text"
+        placeholder="Thanks for using smol.bar!"
+      />
+    </div>
+
+    <button
+      class="uppercase bg-blue-800 disabled:hidden p-1"
+      [disabled]="loading"
+      (click)="createRedirect()"
+      type="submit"
+    >
+      Save
+    </button>
+
+    <span
+      class="text-red-500"
+      *ngIf="createRedirectForm.get('id')!.hasError('required')"
+    >
+      The ID field is required!
+    </span>
+    <span
+      class="text-red-500"
+      *ngIf="createRedirectForm.get('target')!.hasError('required')"
+    >
+      The target field is required!
+    </span>
+    <span
+      class="text-red-500"
+      *ngIf="createRedirectForm.get('target')!.hasError('pattern')"
+      >This field has to contain a valid URL (ex.: https://foo.bar)!</span
+    >
+    <span
+      class="text-red-500"
+      *ngIf="createRedirectForm.get('delay')!.hasError('required')"
+    >
+      The delay field is required!
+    </span>
+    <span
+      class="text-red-500"
+      *ngIf="createRedirectForm.get('delay')!.hasError('pattern')"
+    >
+      The delay has to be a valid number!
+    </span>
+    <span
+      class="text-red-500"
+      *ngIf="createRedirectForm.get('delay')!.hasError('min')"
+    >
+      The delay has to be greater than or equal to 0!
+    </span>
+    <span
+      class="text-red-500"
+      *ngIf="createRedirectForm.get('delay')!.hasError('max')"
+    >
+      The delay has to be less than or equal to 60!
+    </span>
+    <span
+      class="text-red-500"
+      *ngIf="createRedirectForm.get('expiresAt')!.hasError('required')"
+    >
+      The expires at field is required!
+    </span>
+  </div>
+</form>

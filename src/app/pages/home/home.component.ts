@@ -11,36 +11,45 @@ import { Metadata } from 'src/models/metadata';
   styleUrls: ['./home.component.css'],
 })
 export class HomeComponent {
-  today: Date = new Date();
-
   loading = false;
 
   error: FirebaseError | undefined;
 
-  createRedirectForm: FormGroup;
+  createRedirectForm = new FormGroup({
+    id: new FormControl(this.generateId(), [Validators.required]),
+    target: new FormControl('', [
+      Validators.required,
+      Validators.pattern(
+        /^((([A-Za-z]{3,9}:(?:\/\/)?)(?:[-;:&=+$,\w]+@)?[A-Za-z0-9.-]+|(?:www\.|[-;:&=+$,\w]+@)[A-Za-z0-9.-]+)((?:\/[+~%/.\w\-_]*)?\??(?:[-+=&;%@.\w_]*)#?(?:[.!/\\\w]*))?)$/
+      ),
+    ]),
+    delay: new FormControl(3, [
+      Validators.required,
+      Validators.pattern(/^\d*$/),
+      Validators.min(0),
+      Validators.max(60),
+    ]),
+    expiresAt: new FormControl('', [Validators.required]),
+    message: new FormControl(),
+  });
 
-  constructor(private firestore: Firestore) {
-    this.createRedirectForm = this.createFormGroup();
-  }
-
-  get url() {
-    return (
-      'https://smol.bar/r/' + this.createRedirectForm.get('id')?.value ??
-      'invalid'
-    );
-  }
+  constructor(private firestore: Firestore) {}
 
   async createRedirect() {
     if (this.createRedirectForm.valid) {
       const redirect = new Redirect(
         this.createRedirectForm.get('target')?.value ?? '',
         Number.parseInt(this.createRedirectForm.get('delay')?.value) ?? -1,
-        this.createRedirectForm.get('expiresAt')?.value ?? Timestamp.now(),
+        Timestamp.fromDate(
+          new Date(
+            this.createRedirectForm.get('expiresAt')?.value ?? '1970-01-01'
+          )
+        ),
         this.createRedirectForm.get('message')?.value ?? null,
         new Metadata(Timestamp.now())
       );
 
-      const id = this.createRedirectForm.get('id')?.value ?? this.generateId();
+      const id = this.createRedirectForm.get('id')?.value;
       try {
         this.loading = true;
         await setDoc(
@@ -61,10 +70,6 @@ export class HomeComponent {
     }
   }
 
-  resetForm() {
-    this.createRedirectForm = this.createFormGroup();
-  }
-
   private generateId(length = 8): string {
     let result = '';
     const characters =
@@ -76,25 +81,5 @@ export class HomeComponent {
     }
 
     return result;
-  }
-
-  private createFormGroup() {
-    return new FormGroup({
-      id: new FormControl(this.generateId(), [Validators.required]),
-      target: new FormControl('', [
-        Validators.required,
-        Validators.pattern(
-          /^((([A-Za-z]{3,9}:(?:\/\/)?)(?:[-;:&=+$,\w]+@)?[A-Za-z0-9.-]+|(?:www\.|[-;:&=+$,\w]+@)[A-Za-z0-9.-]+)((?:\/[+~%/.\w\-_]*)?\??(?:[-+=&;%@.\w_]*)#?(?:[.!/\\\w]*))?)$/
-        ),
-      ]),
-      delay: new FormControl(3, [
-        Validators.required,
-        Validators.pattern(/^\d*$/),
-        Validators.min(0),
-        Validators.max(60),
-      ]),
-      expiresAt: new FormControl(new Date(), [Validators.required]),
-      message: new FormControl(),
-    });
   }
 }

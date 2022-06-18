@@ -1,24 +1,9 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    function authenticatedUidMatchesProvidedUid(auth, uid, allowAnonymous) {
-    	return (allowAnonymous && uid == "anonymous") ||
-      			 (auth != null && auth.uid == uid);
-    }
-
-    function userExists(uid, allowAnonymous) {
-      return (allowAnonymous && uid == "anonymous") ||
-       			 exists(/databases/$(database)/documents/users/$(uid));
-    }
-
-    function validateMetadata(metadata, allowAnonymous) {
+    function validateMetadata(metadata) {
       return metadata != null &&
-             metadata.createdAt != null && metadata.createdAt is timestamp &&
-             authenticatedUidMatchesProvidedUid(request.auth, metadata.createdBy, allowAnonymous) &&
-             userExists(metadata.createdBy, allowAnonymous) &&
-             metadata.updatedAt != null && metadata.updatedAt is timestamp &&
-             authenticatedUidMatchesProvidedUid(request.auth, metadata.updatedBy, allowAnonymous) &&
-             userExists(metadata.updatedBy, allowAnonymous);
+             metadata.createdAt != null && metadata.createdAt is timestamp;
     }
 
     match /redirects/{document=**} {
@@ -28,7 +13,7 @@ service cloud.firestore {
                data.delay is int && data.delay >= 0 && data.delay <= 60 &&
                data.expiresAt is timestamp && data.expiresAt != null &&
                (data.message is string || data.message == null) &&
-               validateMetadata(data.metadata, true);
+               validateMetadata(data.metadata);
       }
 
       allow get: if true;

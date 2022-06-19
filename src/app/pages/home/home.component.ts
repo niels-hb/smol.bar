@@ -37,6 +37,8 @@ export class HomeComponent {
   constructor(private firestore: Firestore, private clipboard: Clipboard) {}
 
   async createRedirect() {
+    this.error = undefined;
+
     if (this.createRedirectForm.valid) {
       const redirect = new Redirect(
         this.createRedirectForm.get('target')?.value ?? '',

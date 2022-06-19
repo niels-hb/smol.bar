@@ -65,6 +65,10 @@
       {{ loading ? "Copied!" : "Save & Copy" }}
     </button>
 
+    <span class="text-red-500" *ngIf="error">
+      {{ error.message }}
+    </span>
+
     <span
       class="text-red-500"
       *ngIf="createRedirectForm.get('id')!.hasError('required')"

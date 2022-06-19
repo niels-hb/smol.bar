@@ -57,12 +57,12 @@
     </div>
 
     <button
-      class="uppercase bg-blue-800 disabled:hidden p-1"
+      class="uppercase bg-green-700 disabled:bg-gray-600 p-1"
       [disabled]="loading"
       (click)="createRedirect()"
       type="submit"
     >
-      Save
+      {{ loading ? "Copied!" : "Save & Copy" }}
     </button>
 
     <span
@@ -80,8 +80,9 @@
     <span
       class="text-red-500"
       *ngIf="createRedirectForm.get('target')!.hasError('pattern')"
-      >This field has to contain a valid URL (ex.: https://foo.bar)!</span
     >
+      The target has to be a valid URL!
+    </span>
     <span
       class="text-red-500"
       *ngIf="createRedirectForm.get('delay')!.hasError('required')"

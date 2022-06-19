@@ -1,6 +1,7 @@
 import { Firestore, Timestamp, doc, setDoc } from '@angular/fire/firestore';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Redirect, redirectConverter } from 'src/models/redirect';
+import { Clipboard } from '@angular/cdk/clipboard';
 import { Component } from '@angular/core';
 import { FirebaseError } from '@angular/fire/app';
 import { Metadata } from 'src/models/metadata';
@@ -33,7 +34,7 @@ export class HomeComponent {
     message: new FormControl(),
   });
 
-  constructor(private firestore: Firestore) {}
+  constructor(private firestore: Firestore, private clipboard: Clipboard) {}
 
   async createRedirect() {
     if (this.createRedirectForm.valid) {
@@ -58,6 +59,8 @@ export class HomeComponent {
           ),
           redirect
         );
+
+        this.clipboard.copy(`https://smol.bar/r/${id}`);
       } catch (e) {
         if (e instanceof FirebaseError) {
           this.error = e;
